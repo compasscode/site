@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "express": "^4.15.3",
+    "marko": "^4.4.19"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "concurrently": "^3.5.0",
+    "cssnano": "^3.10.0",
+    "postcss-cli": "^4.1.0",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-import": "^10.0.0"
+  },
+  "scripts": {
+    "start": "nodemon server.js -i *.marko.js -e js,marko",
+    "clean": "rm -rf assets/",
+    "build": "npm run clean && mkdir -p assets/ && npm run build:css",
+    "watch": "concurrently --names \"css\" \"npm run watch:css\"",
+    "build:css": "postcss css/index.css -o assets/index.css",
+    "watch:css": "postcss css/index.css -o assets/index.css -w"
+  }
+}

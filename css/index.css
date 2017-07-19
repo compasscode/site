@@ -1,0 +1,12 @@
+@import 'vars.css';
+@import 'components/layout.css';
+@import 'components/nav.css';
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+::selection {
+	color: white;
+	background-color: var(--secondary);
+}

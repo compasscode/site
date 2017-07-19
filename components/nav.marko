@@ -1,0 +1,16 @@
+static const links = [
+	{ title: 'Home', url: '/' },
+	{ title: 'Projects', url: '/me/projects' },
+	{ title: 'Forums', url: '/forums' },
+	{ title: 'About', url: '/about' },
+]
+
+<div.nav>
+	<ul.nav-links.container>
+		<li.nav-link.nav-logo></li>
+
+		<li.nav-link for(link in links)>
+			<a href=`${link.url}`>${link.title}</a>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,25 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #fefefe;
+	color: #121212;
+
+	font: 18px 'Source Sans Pro', system-ui;
+}
+
+.container {
+	max-width: 800px;
+	width: 100%;
+
+	margin: 0 auto;
+
+	@media (width <= 900px) {
+		max-width: none;
+
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+}
