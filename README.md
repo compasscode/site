@@ -6,7 +6,7 @@ program.house is a fun and free online platform for learning web development and
 * Share your creations with a community of other learners
 * See what others are creating
 
-This repository contains the program.house site sourcecode. **Note: it's currently not live, or anywhere near completion!**
+This repository contains the program.house site sourcecode. **Note: it's currently not live, nor anywhere near completion!**
 
 ### Installation
 If you are interested in running a local copy of program.house, you'll need at least [Node.js 6](https://nodejs.org/en/download/current/).
