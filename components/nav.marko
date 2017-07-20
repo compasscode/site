@@ -1,8 +1,13 @@
 static const links = [
-	{ title: 'Home', url: '/' },
+	{ title: 'Explore', url: '/' },
 	{ title: 'Projects', url: '/me/projects' },
 	{ title: 'Forums', url: '/forums' },
 	{ title: 'About', url: '/about' },
+]
+
+static const userLinks = [
+	{ title: 'Profile', url: '/me' },
+	{ title: 'Settings', url: '/me/settings' },
 ]
 
 <div.nav>
@@ -12,5 +17,63 @@ static const links = [
 		<li.nav-link for(link in links)>
 			<a href=`${link.url}`>${link.title}</a>
 		</li>
+
+		<li.nav-link.nav-user#nav-dropdown-action>
+			<div.nav-user-dropdown.is-collapsed#nav-dropdown>
+				<div.nav-user-dropdown-arrow></div>
+
+				<div.nav-user-dropdown-content>
+					<b.nav-user-dropdown-name>alex</b>
+
+					<ul.nav-user-dropdown-links>
+						<li.nav-user-dropdown-link for(link in userLinks)>
+							<a href=`${link.url}`>${link.title}</a>
+						</li>
+
+						<hr.nav-user-dropdown-links-rule/>
+
+						<li.nav-user-dropdown-link>
+							<span#nav-user-dropdown-sign-out>Sign Out</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</li>
 	</ul>
 </div>
+
+<div#nav-dropdown-close-action.is-hidden></div>
+
+<script>
+
+// Dropdown open/close actions
+var navDropdownEl = document.getElementById('nav-dropdown')
+var navDropbgEl = document.getElementById('nav-dropdown-close-action')
+
+document.getElementById('nav-dropdown-action')
+	.addEventListener('click', function() {
+		// open dropdown
+		navDropdownEl.classList.remove('is-collapsed')
+		navDropbgEl.classList.remove('is-hidden')
+	})
+
+navDropbgEl.addEventListener('click', function() {
+	// close dropdown
+	navDropdownEl.classList.add('is-collapsed')
+	navDropbgEl.classList.add('is-hidden')
+})
+
+// "Sign Out" link
+document.getElementById('nav-user-dropdown-sign-out')
+	.addEventListener('click', function() {
+		fetch('/me/signout', {
+			method: 'POST',
+			credentials: 'same-origin'
+		}).then(function() {
+			window.location.reload()
+		}).catch(function(err) {
+			throw err
+		})
+	})
+
+</script>
