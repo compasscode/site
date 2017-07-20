@@ -16,6 +16,7 @@ $ git clone https://github.com/programdothouse/site program.house-site --recursi
 $ cd program.house-site
 
 $ npm install
+$ npm install nedb
 ```
 
 You also need to compile assets with
@@ -33,6 +34,17 @@ You may then visit [localhost:7070](http://localhost:7070/).
 During development, you will need to build assets every time you change them. There is a helper script for automatically building assets whenever they are changed:
 ```sh
 $ npm run watch
+```
+
+### Configuration
+You can optionally configure options in a `config.json`. It's read as [JSON5](http://json5.org/), so comments are valid etc.
+
+Here are the defaults:
+```js
+{
+	db: 'nedb://database.db', // see https://git.io/v7fm0
+	loglevel: 'info', // one of: 'debug', 'info', 'warn', 'success', 'error', 'none'
+}
 ```
 
 ---
