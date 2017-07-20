@@ -1,6 +1,6 @@
-# program.house/site
+# Compass
 
-program.house is a fun and free online platform for learning web development and sharing with others.
+Compass is a fun and free online platform for learning web development and sharing with others.
 
 * Learn quickly with documentation and tutorials built directly into the editor
 * Share your creations with a community of other learners
@@ -9,11 +9,11 @@ program.house is a fun and free online platform for learning web development and
 This repository contains the program.house site sourcecode. **Note: it's currently not live, nor anywhere near completion!**
 
 ### Installation
-If you are interested in running a local copy of program.house, you'll need at least [Node.js 6](https://nodejs.org/en/download/current/).
+If you are interested in running a local copy of the Compass server, you'll need at least [Node.js 6](https://nodejs.org/en/download/current/).
 
 ```sh
-$ git clone https://github.com/programdothouse/site program.house-site --recursive-submodules
-$ cd program.house-site
+$ git clone https://github.com/compasscode/site compass --recursive-submodules
+$ cd compass
 
 $ npm install
 $ npm install nedb
@@ -49,4 +49,4 @@ Here are the defaults:
 
 ---
 
-Pull requests are greatly appreciated, and feel free to leave/comment on issues on the [issue tracker](https://github.com/programdothouse/site/issues), or, if they relate to the program.house project editor, on [the editor issue tracker](https://github.com/programdothouse/editor/issues).
+Pull requests are greatly appreciated, and feel free to leave/comment on issues on the [issue tracker](https://github.com/compasscode/site/issues), or, if they relate to the project editor, on [the editor issue tracker](https://github.com/compasscode/editor/issues).

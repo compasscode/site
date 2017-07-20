@@ -1,5 +1,5 @@
 static const links = [
-	{ title: 'Explore', url: '/' },
+	{ title: 'Home', url: '/' },
 	{ title: 'Projects', url: '/me/projects' },
 	{ title: 'Forums', url: '/forums' },
 	{ title: 'About', url: '/about' },
@@ -12,7 +12,17 @@ static const userLinks = [
 
 <div.nav>
 	<ul.nav-links.container>
-		<li.nav-link.nav-logo></li>
+		<li.nav-link.nav-logo>
+			<svg viewBox='0 0 48 40'>
+				<g fill='#fff'>
+					<path d='M24 0C10.745 0 0 7.435 0 16.607c0 3.38.02 4.56 0 6.785C0 32.564 10.745 40 24 40s24-7.436 24-16.608v-6.785C48 7.435 37.255 0 24 0zm0 4a20 12 0 0 1 20 12 20 12 0 0 1-20 12A20 12 0 0 1 4 16 20 12 0 0 1 24 4z'/>
+					<g id='nav-logo-compass-needle'>
+						<path d='M18.364 16.08h9.683l-4.84-14.525z'/>
+						<path d='M18.364 16.08h9.683l-4.84 14.525z' opacity='.5'/>
+					</g>
+				</g>
+			</svg>
+		</li>
 
 		<li.nav-link for(link in links)>
 			<a href=`${link.url}`>${link.title}</a>
@@ -46,6 +56,8 @@ static const userLinks = [
 
 <script>
 
+'use strict'
+
 // Dropdown open/close actions
 var navDropdownEl = document.getElementById('nav-dropdown')
 var navDropbgEl = document.getElementById('nav-dropdown-close-action')
@@ -63,7 +75,7 @@ navDropbgEl.addEventListener('click', function() {
 	navDropbgEl.classList.add('is-hidden')
 })
 
-// "Sign Out" link
+// 'Sign Out' link
 document.getElementById('nav-user-dropdown-sign-out')
 	.addEventListener('click', function() {
 		fetch('/me/signout', {
@@ -75,5 +87,68 @@ document.getElementById('nav-user-dropdown-sign-out')
 			throw err
 		})
 	})
+
+// Compass needle animation
+!(function() {
+	var dir = 45
+	var vel = .1
+	var logo = document.querySelector('.nav-logo')
+	var needle = document.getElementById('nav-logo-compass-needle')
+	var isOver = false
+	var looping = false
+
+	function draw() {
+		needle.style.transform = 'rotateX(36deg) rotate(' + dir + 'deg)'
+	}
+
+	function loop(times45) {
+		dir = (dir + vel) % 360
+
+		if (isOver)
+			vel += 0.05 * (10 - vel)
+		else {
+			if (dir > 180 + 45)
+				vel += 0.05 * (45 + 360 - dir)
+			else
+				vel += 0.05 * (45 - dir)
+		}
+
+		vel *= 0.95
+		draw()
+
+		if (Math.round(dir) === 45 && times45++ > 30) {
+			dir = 45
+			looping = false
+			draw()
+		} else {
+			if (Math.round(dir) !== 45)
+				times45 = 0
+
+			window.requestAnimationFrame(function() {
+				loop(times45)
+			})
+		}
+	}
+
+	logo.addEventListener('mouseover', function() {
+		isOver = true
+
+		if (!looping) {
+			looping = true
+			loop(0)
+		}
+	})
+
+	logo.addEventListener('mouseout', function() {
+		isOver = false
+
+		if (!looping) {
+			looping = true
+			loop(0)
+		}
+	})
+
+	draw()
+})()
 
 </script>
