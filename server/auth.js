@@ -200,7 +200,6 @@ module.exports = (app, db) => {
 		if (req.body.avatar) {
 			avatar = await fetch(req.body.avatar).then(res => res.buffer())
 			avatar = avatar.toJSON()
-			log.inspect(avatar)
 		}
 
 		if (req.body.username.length === 0) {

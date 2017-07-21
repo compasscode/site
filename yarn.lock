@@ -1896,7 +1896,13 @@ nan@~2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.5.1.tgz#d5b01691253326a97a2bbee9e61c55d8d60351e2"
 
-nedb@1.8.0, nedb@^1.8.0:
+nedb-session-store@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/nedb-session-store/-/nedb-session-store-1.1.1.tgz#e26569456cbd9dbb86ee4e17e566b64c5b29ed0e"
+  dependencies:
+    nedb "^1.5.0"
+
+nedb@1.8.0, nedb@^1.5.0, nedb@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/nedb/-/nedb-1.8.0.tgz#0e3502cd82c004d5355a43c9e55577bd7bd91d88"
   dependencies:

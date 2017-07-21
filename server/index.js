@@ -4,6 +4,8 @@ const { prod, path, log, db } = require('./util')
 const config = require('./config')
 const express = require('express')
 const routes = require('./routes')
+const session = require('express-session')
+const Store = require('nedb-session-store')(session)
 
 if (prod)
 	log.info(`Running in PRODUCTION mode`)
@@ -16,10 +18,11 @@ app.disable('x-powered-by')
 app.use(require('marko/express')())
 app.use(require('body-parser').urlencoded({ extended: true }))
 app.use(require('cookie-parser')())
-app.use(require('express-session')({
+app.use(session({
+	store: new Store({ filename: 'sessions.db' }),
 	secret: config.sessionSecret,
 	resave: false,
-	saveUninitialized: false,
+	saveUninitialized: true,
 }))
 app.use(require('connect-flash')())
 
