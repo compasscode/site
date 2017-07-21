@@ -14,7 +14,7 @@ static const hasGoogle = hasSSO && !!config.sso.google
 		<label#signin-username-label style='display: none'>Username</label>
 		<input#signin-username-input.is-only
 			type='text' name='username' placeholder='Username'
-			pattern='[A-Za-z0-9_-]{1,15}' maxlength='15'
+			pattern='[A-Za-z0-9_-]{1,20}' maxlength='20'
 			title=`Username should contain only A-Z, 0-9, underscores, and
 			dashes.`/>
 
@@ -99,6 +99,9 @@ function signinNext() {
 
 				var label = document.createElement('label')
 				label.innerText = inputs[i][2]
+
+				if (inputs[i][1] === 'password')
+					el.setAttribute('maxlength', '30')
 
 				form.appendChild(label)
 				form.appendChild(el)

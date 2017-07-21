@@ -1,0 +1,32 @@
+.sides {
+	display: block;
+
+	@media (width >= 801px) {
+		& > .side-nav {
+			width: calc(100% / 3);
+		}
+
+		& > .side-content {
+			width: calc(100% / 3 * 2);
+		}
+
+		& > .side-nav,
+		& > .side-content {
+			display: inline-block;
+			padding-left: 1em;
+			padding-right: 1em;
+		}
+
+		& > .side-left {
+			float: left;
+		}
+	}
+
+	@media (width <= 800px) {
+		& > .side-nav,
+		& > .side-content {
+			margin-bottom: 1em;
+			margin-top: 1em;
+		}
+	}
+}

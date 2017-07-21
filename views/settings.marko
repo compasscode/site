@@ -1,0 +1,109 @@
+<include('../components/layout', data) title=`${data.tabName} settings`/>
+<include('../components/nav', data)/>
+
+static const tabs = {
+	Profile: '/profile',
+	Account: '/account',
+}
+
+<main.container.sides>
+	<aside.side-nav.side-left>
+		<h3.dim>Settings</h3>
+		<ul.tabs-vertical>
+			<li.tab for(name, url in tabs)>
+				<a class={ 'tab-active': name === data.tabName }
+					href=`/me/settings${url}`>
+					${name}
+				</a>
+			</li>
+		</ul>
+	</aside>
+
+	<div.side-content>
+		<if(data.tabName === 'Account')>
+			<form.form-group method='POST' if(!!data.user.passhash)>
+				<h2#change-password>Change password</h2>
+
+				<label>Current password</label>
+				<input type='password' name='oldPassword'/>
+
+				<label>New password</label>
+				<input
+					type='password' name='password' maxlength='30' autocomplete='off'/>
+
+				<button.btn.btn-theme.btn-small type='submit'>
+					Change password
+				</button>
+			</form>
+
+			<form.form-group method='POST' else()>
+				<h2#change-password>Set password</h2>
+				<p>
+					Because you signed up using ${data.user.signedUpWith},
+					you don't have a password connected to your account. <b>Set one!</b>
+				</p>
+
+				<!-- this input is only here to stop bad browsers from
+						 trying to autocomplete the "New password" input -->
+				<input type='password' name='oldPassword' style='display: none'/>
+
+				<div.form-group-row>
+					<input
+						type='password' name='password'  maxlength='30' autocomplete='off'
+						placeholder='New password'/>
+
+					<button.btn.btn-theme.btn-small type='submit'>
+						Set password
+					</button>
+				</div>
+			</form>
+
+			<hr.rule/>
+
+			<form.form-group method='POST'>
+				<h2#change-email>Change email address</h2>
+				<!--<p>
+					If you change your email address, we will send you another
+					confirmation email. Click the link in the email to confirm
+					your new email address, and it will show up here.
+				</p>-->
+
+				<label>Current email address: <b>${data.user.email}</b></label>
+
+				<div.form-group-row>
+					<input type='email' name='email' placeholder='New email address'/>
+
+					<button.btn.btn-theme.btn-small type='submit'>
+						Change email address
+					</button>
+				</div>
+			</form>
+
+			<hr.rule/>
+
+			<form.form-group method='POST'>
+				<h2#change-username>Change username</h2>
+				<p>Changing your username can have some
+				<a.link href='/about/faq#what-happens-when-i-change-my-username'
+					target='_blank'>
+					unexpected side effects.
+				</a></p>
+
+				<label>Current username: <b>${data.user.username}</b></label>
+
+				<div.form-group-row>
+					<input
+						type='text' name='username' pattern='[A-Za-z0-9_-]{1,20}' maxlength='20' title=`Username should contain only A-Z, 0-9,
+						underscores, and dashes.` placeholder='New username'
+						autocomplete='off'/>
+
+					<button.btn.btn-theme.btn-small type='submit'>
+						Change username
+					</button>
+				</div>
+			</form>
+		</if>
+	</div>
+</main>
+
+<include('../components/footer', data)/>

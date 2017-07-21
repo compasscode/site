@@ -161,4 +161,14 @@ document.getElementById('nav-user-dropdown-sign-out')
 
 </script>
 
+<div.flash.flash-error
+	if(data.flash && data.flash.error && data.flash.error.length)>
+	<div.container>$!{data.flash.error}</div>
+</div>
+
+<div.flash.flash-info
+	if(data.flash && data.flash.info && data.flash.info.length)>
+	<div.container>$!{data.flash.info}</div>
+</div>
+
 <include('../components/signin') if(!signedIn)/>

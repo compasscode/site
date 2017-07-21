@@ -1,0 +1,44 @@
+:root {
+	--tabs-color: #e0e5ed;
+}
+
+/* TODO horizontal tabs */
+
+.tabs-horizontal,
+.tabs-vertical {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	user-select: none;
+	border-radius: 3px;
+	border: 1px solid var(--tabs-color);
+
+	& .tab {
+		margin: 0;
+		padding: .7em;
+
+		& > a {
+			color: var(--secondary-light);
+			text-decoration: none;
+
+			&:hover {
+				color: var(--secondary-dark);
+			}
+
+			&.tab-active {
+				color: var(--secondary-dark);
+				font-weight: bold;
+				letter-spacing: -.04em;
+			}
+		}
+	}
+}
+
+.tabs-vertical .tab {
+	border-top: 1px solid var(--tabs-color);
+
+	&:first-child {
+		border-top: 0;
+	}
+}

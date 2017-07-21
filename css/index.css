@@ -2,6 +2,9 @@
 @import 'button.css';
 @import 'form.css';
 @import 'modal.css';
+@import 'flash.css';
+@import 'tabs.css';
+@import 'sides.css';
 @import 'components/layout.css';
 @import 'components/nav.css';
 
@@ -12,4 +15,27 @@
 ::selection {
 	color: white;
 	background-color: var(--secondary);
+}
+
+a.link {
+	color: var(--theme-dark);
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.rule {
+	border: 0;
+
+	display: block;
+	width: 90%;
+	height: 1px;
+
+	margin: 1.5em auto;
+	padding: 0;
+
+	color: #eee;
+	background: #eee;
 }

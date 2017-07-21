@@ -62,11 +62,13 @@ app.use((err, req, res, next) => {
 })
 
 process.on('uncaughtException', err => {
-	log.error(err)
+	log.error(err.message || err)
+	log.debug(err.stack || 'no stack')
 	process.exit(1)
 })
 
 process.on('unhandledRejection', err => {
-	log.error(err)
+	log.error(err.message || err)
+	log.debug(err.stack || 'no stack')
 })
 

@@ -1,8 +1,6 @@
 <include('../components/layout', data)/>
 <include('../components/nav', data)/>
 
-<!-- TODO make ux better -->
-
 <main.container.slim>
 	<h1>
 		Continue with ${data.provider}
@@ -13,9 +11,9 @@
 			<label>Username</label>
 			<input#continue-username
 				name='username' type='text' placeholder='Username'
-				value=`${data.profile.username}` pattern='[A-Za-z0-9_-]{1,15}'
+				value=`${data.profile.username}` pattern='[A-Za-z0-9_-]{1,20}'
 				title=`Username should contain only A-Z, 0-9, underscores, and
-				dashes.` maxlength='15'/>
+				dashes.` maxlength='20'/>
 
 			<label>Email</label>
 			<input name='email' type='email' placeholder='Email'
@@ -25,11 +23,12 @@
 				value=`${data.profile.photos[0].value}`/>
 
 			<input name='twitterId' type='hidden'
-				value=`${data.profile.id}` if(data.provider === 'Twitter') />
+				value=`${data.profile.id}` if(data.provider === 'Twitter')/>
 			<input name='githubId' type='hidden'
-				value=`${data.profile.id}` if(data.provider === 'GitHub') />
+				value=`${data.profile.id}` if(data.provider === 'GitHub')/>
 			<input name='googleId' type='hidden'
-				value=`${data.profile.id}` if(data.provider === 'Google') />
+				value=`${data.profile.id}` if(data.provider === 'Google')/>
+			<input name='provider' type='hidden' value=`${data.provider}`/>
 		</div>
 
 		<button.btn.btn-theme.btn-small type='submit'>Create account</button>

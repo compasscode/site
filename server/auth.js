@@ -202,18 +202,8 @@ module.exports = (app, db) => {
 			avatar = avatar.toJSON()
 		}
 
-		if (req.body.username.length === 0) {
-			req.flash('error', 'Username is required')
-			return res.status(403).redirect('/signin')
-		}
-
-		if (req.body.username.length > 15) {
-			req.flash('error', 'Username is too long')
-			return res.status(403).redirect('/signin')
-		}
-
-		if (!(/^[A-Za-z0-9_-]+$/).test(req.body.username)) {
-			req.flash('error', 'Username contains invalid characters')
+		if (!User.usernameIsValid(req.body.username)) {
+			req.flash('error', 'Username is invalid or not provided')
 			return res.status(403).redirect('/signin')
 		}
 
@@ -231,6 +221,7 @@ module.exports = (app, db) => {
 		try {
 			var user = await User.create({
 				username: req.body.username,
+				usernameLower: req.body.username.toLowerCase(),
 				passhash: req.body.password
 					? await User.hashPassword(req.body.password)
 					: undefined,
@@ -238,6 +229,7 @@ module.exports = (app, db) => {
 				twitterId: req.body.twitterId,
 				githubId: req.body.githubId,
 				googleId: req.body.googleId,
+				signedUpWith: req.body.provider,
 				avatar,
 			})
 

@@ -9,10 +9,4 @@ document.querySelector('.nav-signin').remove()
 
 </script>
 
-<script if(data.error)>
-
-document.querySelector('#signin-error').innerText = "${data.error}"
-
-</script>
-
 <include('../components/footer', data)/>
