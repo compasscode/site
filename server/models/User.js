@@ -7,15 +7,22 @@ module.exports = class User extends Document {
 
 		this.username = {
 			type: String,
-			match: /[A-Za-z0-9][A-Za-z0-9-_]+/,
+			match: /[A-Za-z0-9_-]{1,15}/,
 			required: true,
 			unique: true }
 		this.passhash = { type: String }
 		this.joinDate = { type: Date, default: Date.now, required: true }
 		this.avatar = Object // Buffer as object
+		this.email = String
 
 		this.twitterId = String
 		this.githubId = String
+		this.googleId = String
+	}
+
+	static isEmailAddress(test) {
+		// loose email regex
+		return (/.+\@.+\..+/).test(test)
 	}
 
 	static hashPassword(password) {

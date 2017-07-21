@@ -11,8 +11,12 @@ static const hasGoogle = hasSSO && !!config.sso.google
 	<b#signin-error></b>
 
 	<form.form-group.signin-username action='/signin' method='POST'>
+		<label#signin-username-label style='display: none'>Username</label>
 		<input#signin-username-input.is-only
-			type='text' name='username' placeholder='Username'/>
+			type='text' name='username' placeholder='Username'
+			pattern='[A-Za-z0-9_-]{1,15}' maxlength='15'
+			title=`Username should contain only A-Z, 0-9, underscores, and
+			dashes.`/>
 
 		<a.btn.btn-arrow-right.btn-theme#signin-next/>
 	</form>
@@ -51,36 +55,52 @@ document.querySelector('.nav-signin a').addEventListener('click', function() {
 
 // Show more inputs when username input filled out
 function signinNext() {
-	let username = document.getElementById('signin-username-input').value
-	let form = document.querySelector('.signin-username')
+	var username = document.getElementById('signin-username-input').value
+	var form = document.querySelector('.signin-username')
 
-	signinNext = function() {}
-	document.querySelector('.signin-sso-opts').remove()
-	document.querySelector('#signin-next').remove()
-	document.querySelector('.signin-username')
-		.classList.remove('signin-username')
+	signinNext = function() { return signinNext }
 
-	fetch('/signin/userexists?username=' + username)
+	fetch('/signin/signinOptions?username=' + username)
 		.then(function(res) { return res.json() })
-		.then(function(exists) {
-			console.log(exists)
+		.then(function(data) {
+			if (!data.canUsePassword) {
+				signinNext = signinNext()
+				alert('This user has no password associated with it. '
+						+ 'Please continue with another provider.')
+				return
+			}
+
+			document.querySelector('.signin-sso-opts').remove()
+			document.querySelector('#signin-next').remove()
+			document.querySelector('.signin-username')
+				.classList.remove('signin-username')
+			var exists = data.exists
 
 			var inputs = exists ? [
-				[ 'password', 'password', 'Password' ]
+				[ 'password', 'password', 'Password',
+					'•••••••••' ]
 			] : [
-				[ 'password', 'password', 'Password' ],
-				[ 'text', 'email', 'Email' ]
+				[ 'password', 'password', 'Password',
+					'•••••••••' ],
+				[ 'text', 'email', 'Email', 'meow@email.com' ]
 			]
 
 			if (!exists)
 				form.setAttribute('action', '/signin/createaccount')
 
+			// Username label
+			document.getElementById('signin-username-label').style.display = 'block'
+
 			for (var i = 0; i < inputs.length; i++) {
 				var el = document.createElement('input')
 				el.setAttribute('type', inputs[i][0])
 				el.setAttribute('name', inputs[i][1])
-				el.setAttribute('placeholder', inputs[i][2])
+				el.setAttribute('placeholder', inputs[i][3])
 
+				var label = document.createElement('label')
+				label.innerText = inputs[i][2]
+
+				form.appendChild(label)
 				form.appendChild(el)
 			}
 

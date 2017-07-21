@@ -10,9 +10,15 @@
 
 	<form.form action='/signin/createaccount' method='POST'>
 		<div.form-group>
-			<input name='username' type='text' placeholder='Username'
-				value=`${data.profile.username}`/>
-			<input name='email' type='text' placeholder='Email'
+			<label>Username</label>
+			<input#continue-username
+				name='username' type='text' placeholder='Username'
+				value=`${data.profile.username}` pattern='[A-Za-z0-9_-]{1,15}'
+				title=`Username should contain only A-Z, 0-9, underscores, and
+				dashes.` maxlength='15'/>
+
+			<label>Email</label>
+			<input name='email' type='email' placeholder='Email'
 				value=`${data.profile.emails[0].value}`/>
 
 			<input name='avatar' type='hidden'
@@ -26,8 +32,18 @@
 				value=`${data.profile.id}` if(data.provider === 'Google') />
 		</div>
 
-		<button.btn.btn-theme type='submit'>Create account</button>
+		<button.btn.btn-theme.btn-small type='submit'>Create account</button>
 	</form>
 </main>
+
+<script>
+
+// Check to see if that username is free
+document.getElementById('continue-username')
+	.addEventListener('keydown', function() {
+
+	})
+
+</script>
 
 <include('../components/footer', data)/>

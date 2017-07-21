@@ -36,7 +36,9 @@ db.then(db => {
 		log.debug(`Hit 404 at ${req.path}`)
 
 		res.status(404)
-		res.marko(require('../views/404'))
+		res.marko(require('../views/404'), {
+			user: req.user,
+		})
 	})
 
 	app.listen(7070, () => {
@@ -51,7 +53,9 @@ app.use((err, req, res, next) => {
 	log.error(err)
 
 	res.status(500)
-	res.marko(require('../views/500'))
+	res.marko(require('../views/500'), {
+		user: req.user,
+	})
 })
 
 process.on('uncaughtException', err => {

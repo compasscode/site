@@ -39,12 +39,13 @@ module.exports = (app, db) => {
 	app.use(passport.initialize())
 	app.use(passport.session())
 
-	app.get('/signin/userexists', async (req, res) => {
+	app.get('/signin/signinOptions', async (req, res) => {
 		let user = await User.findOne({ username: req.query.username })
-		// TODO tell client when an account doesn't actually have a
-		//      password associated with it i.e. it was created with some
-		//      sso provider
-		res.json(user !== null)
+
+		res.json({
+			exists: user !== null,
+			canUsePassword: user === null ? true : !!user.passhash,
+		})
 	})
 
 	app.post('/signin', passport.authenticate('local', {
@@ -202,6 +203,32 @@ module.exports = (app, db) => {
 			log.inspect(avatar)
 		}
 
+		if (req.body.username.length === 0) {
+			req.flash('error', 'Username is required')
+			return res.status(403).redirect('/signin')
+		}
+
+		if (req.body.username.length > 15) {
+			req.flash('error', 'Username is too long')
+			return res.status(403).redirect('/signin')
+		}
+
+		if (!(/^[A-Za-z0-9_-]+$/).test(req.body.username)) {
+			req.flash('error', 'Username contains invalid characters')
+			return res.status(403).redirect('/signin')
+		}
+
+		if (typeof req.body.password === 'string'
+		    && req.body.password.length === 0) {
+			req.flash('error', 'Password is required')
+			return res.status(403).redirect('/signin')
+		}
+
+		if (!User.isEmailAddress(req.body.email)) {
+			req.flash('error', 'Email address invalid or not provided')
+			return res.status(403).redirect('/signin')
+		}
+
 		try {
 			var user = await User.create({
 				username: req.body.username,
@@ -219,7 +246,7 @@ module.exports = (app, db) => {
 		} catch(e) {
 			log.warn(e + ' thrown at /signin/createaccount')
 
-			req.flash('error', `Username already taken`)
+			req.flash('error', 'Username already taken')
 			return res.status(403).redirect('/signin')
 		}
 
