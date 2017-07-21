@@ -23,6 +23,10 @@ body {
 		padding-left: 1em;
 		padding-right: 1em;
 	}
+
+	&.slim {
+		max-width: 400px;
+	}
 }
 
 .center {
@@ -32,6 +36,10 @@ body {
 .big-text {
 	font-size: 72px;
 	letter-spacing: -.08em;
+}
+
+.dim {
+	opacity: .5;
 }
 
 h1, h2 {

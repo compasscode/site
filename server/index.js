@@ -1,8 +1,8 @@
 require('marko/node-require')
 
 const { prod, path, log, db } = require('./util')
+const config = require('./config')
 const express = require('express')
-const marko = require('marko/express')
 const routes = require('./routes')
 
 if (prod)
@@ -13,7 +13,15 @@ else
 let app = express()
 
 app.disable('x-powered-by')
-app.use(marko())
+app.use(require('marko/express')())
+app.use(require('body-parser').urlencoded({ extended: true }))
+app.use(require('cookie-parser')())
+app.use(require('express-session')({
+	secret: config.sessionSecret,
+	resave: false,
+	saveUninitialized: false,
+}))
+app.use(require('connect-flash')())
 
 app.use('/img', express.static(path('/img')))
 app.use('/assets', express.static(path('/assets')))
@@ -51,7 +59,7 @@ process.on('uncaughtException', err => {
 	process.exit(1)
 })
 
-process.on('uncaughtRejection', err => {
+process.on('unhandledRejection', err => {
 	log.error(err)
 })
 

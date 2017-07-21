@@ -5,7 +5,25 @@
 $ let title = 'Compass'
 $ if (data.title) title = `${data.title} &middot; Compass`
 
-<title>${title}</title>
+<title>$!{title}</title>
 
 <link rel='stylesheet' href='/assets/index.css'>
 <script src='https://cdn.polyfill.io/v2/polyfill.min.js'></script>
+
+<div#modal-bg.is-hidden>
+	<div.modal-bg-x></div>
+</div>
+
+<script>
+
+// Modal X closes active modal
+document.querySelector('#modal-bg .modal-bg-x')
+	.addEventListener('click', function() {
+		let modal = document.querySelector('.is-active-modal')
+		modal.classList.remove('is-active-modal')
+
+		modal.classList.add('is-hidden')
+		document.getElementById('modal-bg').classList.add('is-hidden')
+	})
+
+</script>

@@ -1,0 +1,113 @@
+static const config = require('../server/config')
+static const hasSSO = !!config.sso
+static const hasTwitter = hasSSO && !!config.sso.twitter
+static const hasGitHub = hasSSO && !!config.sso.github
+static const hasGoogle = hasSSO && !!config.sso.google
+
+<div.modal.is-hidden.container.slim#modal-signin>
+	<p>Sign in to Compass to learn web development and share with
+	others for free.</p>
+
+	<b#signin-error></b>
+
+	<form.form-group.signin-username action='/signin' method='POST'>
+		<input#signin-username-input.is-only
+			type='text' name='username' placeholder='Username'/>
+
+		<a.btn.btn-arrow-right.btn-theme#signin-next/>
+	</form>
+
+	<div.signin-sso-opts>
+		<div.dim.center if(hasSSO)>or</div>
+
+		<a.btn.btn-signin.btn-theme.btn-signin-twitter href='/signin/twitter'
+			if(hasTwitter)>
+			Continue with Twitter
+		</a>
+
+		<a.btn.btn-signin.btn-theme.btn-signin-github href='/signin/github'
+			if(hasGitHub)>
+			Continue with GitHub
+		</a>
+
+		<a.btn.btn-signin.btn-signin-google href='/signin/google' if(hasGoogle)>
+			Continue with Google
+		</a>
+	</div>
+</div>
+
+<script>
+
+// Open modal on "Sign in / Create account" click
+document.querySelector('.nav-signin a').addEventListener('click', function() {
+	let modal = document.getElementById('modal-signin')
+
+	modal.classList.remove('is-hidden')
+	document.getElementById('modal-bg').classList.remove('is-hidden')
+	modal.classList.add('is-active-modal')
+
+	document.querySelector('.signin-username input').focus()
+})
+
+// Show more inputs when username input filled out
+function signinNext() {
+	let username = document.getElementById('signin-username-input').value
+	let form = document.querySelector('.signin-username')
+
+	signinNext = function() {}
+	document.querySelector('.signin-sso-opts').remove()
+	document.querySelector('#signin-next').remove()
+	document.querySelector('.signin-username')
+		.classList.remove('signin-username')
+
+	fetch('/signin/userexists?username=' + username)
+		.then(function(res) { return res.json() })
+		.then(function(exists) {
+			console.log(exists)
+
+			var inputs = exists ? [
+				[ 'password', 'password', 'Password' ]
+			] : [
+				[ 'password', 'password', 'Password' ],
+				[ 'text', 'email', 'Email' ]
+			]
+
+			if (!exists)
+				form.setAttribute('action', '/signin/createaccount')
+
+			for (var i = 0; i < inputs.length; i++) {
+				var el = document.createElement('input')
+				el.setAttribute('type', inputs[i][0])
+				el.setAttribute('name', inputs[i][1])
+				el.setAttribute('placeholder', inputs[i][2])
+
+				form.appendChild(el)
+			}
+
+			document.querySelector('input[type=password]').focus()
+
+			var btn = document.createElement('button')
+			btn.innerText = exists ? 'Sign in' : 'Create account'
+			btn.className = 'btn btn-theme btn-small'
+
+			form.appendChild(btn)
+
+			var btn2 = document.createElement('a')
+			btn2.innerText = 'Back'
+			btn2.className = 'btn btn-small'
+			btn2.setAttribute('href', '/signin')
+
+			form.appendChild(btn2)
+		})
+}
+document.getElementById('signin-username-input')
+	.addEventListener('keydown', function(evt) {
+		if (evt.keyCode === 13) {
+			signinNext()
+			evt.preventDefault()
+			return false
+		}
+	})
+document.getElementById('signin-next').addEventListener('click', signinNext)
+
+</script>

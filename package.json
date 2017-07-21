@@ -1,11 +1,22 @@
 {
   "dependencies": {
+    "bcryptjs-then": "^1.0.1",
+    "body-parser": "^1.17.2",
     "camo": "^0.12.3",
     "chalk": "^2.0.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
+    "express-session": "^1.15.4",
     "json5": "^0.5.1",
     "marko": "^4.4.19",
-    "nedb": "^1.8.0"
+    "nedb": "^1.8.0",
+    "node-fetch": "^1.7.1",
+    "passport": "^0.3.2",
+    "passport-github2": "^0.1.10",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4"
   },
   "devDependencies": {
     "concurrently": "^3.5.0",
@@ -16,7 +27,7 @@
     "postcss-import": "^10.0.0"
   },
   "scripts": {
-    "start": "nodemon server/index.js -q -i *.marko.js -i *.db -e js,marko,json",
+    "start": "nodemon server/index.js -q -i *.marko.js -e js,marko,json",
     "clean": "rm -rf assets/",
     "build": "npm run clean && mkdir -p assets/ && npm run build:css",
     "watch": "concurrently --names \"css\" \"npm run watch:css\"",

@@ -16,7 +16,7 @@ module.exports = {
 	log: {
 		inspect(obj) {
 			const { inspect } = require('util')
-			module.exports.debug(inspect(obj, { depth: null, colors: true }))
+			module.exports.log.debug(inspect(obj, { depth: null, colors: true }))
 		},
 
 		debug(message) {

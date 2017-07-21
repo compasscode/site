@@ -1,0 +1,84 @@
+.btn {
+	display: inline-block;
+
+	border: 0;
+	font: inherit;
+	background: white;
+
+	margin: .5em;
+	padding: 1em;
+
+	text-align: center;
+	text-decoration: none;
+	user-select: none;
+
+	color: #435b7d;
+	border: 1px solid #e0e5ed;
+	border-radius: 3px;
+
+	&:hover {
+		background-color: #fcfcfe;
+	}
+}
+
+.btn-small {
+	padding: .8em;
+	font-size: 90%;
+}
+
+.btn-theme {
+	color: white;
+	border-color: var(--theme);
+	background-color: var(--theme);
+	font-weight: bold;
+
+	letter-spacing: -.03em;
+
+	&:hover {
+		border-color: var(--theme-dark);
+		background-color: var(--theme-dark);
+	}
+}
+
+.btn-arrow-right {
+	width: 50px;
+	height: 50px;
+
+	background: no-repeat url('/img/arrow-right.svg') center center / 70%;
+	background-color: var(--theme);
+}
+
+.btn-signin {
+	display: block;
+	background: no-repeat 10px center / 56px;
+
+	@media (width <= 500px) {
+		padding-left: 4em;
+	}
+
+	&.btn-signin-twitter {
+		border-color: #1da1f2;
+		background-color: #1da1f2;
+		background-image: url('/img/twitter-logo.svg');
+
+		&:hover {
+			border-color: #1c8ed7;
+			background-color: #1c8ed7;
+		}
+	}
+
+	&.btn-signin-github {
+		border-color: #24292e;
+		background-color: #24292e;
+		background-image: url('/img/github-logo.svg');
+
+		&:hover {
+			border-color: #15181b;
+			background-color: #15181b;
+		}
+	}
+
+	&.btn-signin-google {
+		background-image: url('/img/google-logo.svg');
+	}
+}

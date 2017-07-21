@@ -1,0 +1,33 @@
+<include('../components/layout', data)/>
+<include('../components/nav', data)/>
+
+<!-- TODO make ux better -->
+
+<main.container.slim>
+	<h1>
+		Continue with ${data.provider}
+	</h1>
+
+	<form.form action='/signin/createaccount' method='POST'>
+		<div.form-group>
+			<input name='username' type='text' placeholder='Username'
+				value=`${data.profile.username}`/>
+			<input name='email' type='text' placeholder='Email'
+				value=`${data.profile.emails[0].value}`/>
+
+			<input name='avatar' type='hidden'
+				value=`${data.profile.photos[0].value}`/>
+
+			<input name='twitterId' type='hidden'
+				value=`${data.profile.id}` if(data.provider === 'Twitter') />
+			<input name='githubId' type='hidden'
+				value=`${data.profile.id}` if(data.provider === 'GitHub') />
+			<input name='googleId' type='hidden'
+				value=`${data.profile.id}` if(data.provider === 'Google') />
+		</div>
+
+		<button.btn.btn-theme type='submit'>Create account</button>
+	</form>
+</main>
+
+<include('../components/footer', data)/>

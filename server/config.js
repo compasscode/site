@@ -15,8 +15,10 @@ try {
 
 let config = json.parse(configStr)
 let defaults = {
-	db: 'nedb://database.db',
+	db: 'nedb://',
 	loglevel: 'info',
+	sessionSecret: 'hypersecurepassphrase',
+	sso: false,
 }
 
 function loglevelInt() {

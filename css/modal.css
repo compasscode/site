@@ -1,0 +1,71 @@
+.modal {
+	z-index: 12;
+
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -200px !important;
+
+	width: 400px;
+
+	background: white;
+	border-radius: 3px;
+	padding: 2em;
+	box-shadow: 0 0px 6px 2px rgba(0, 0, 0, .3);
+
+	@media (width <= 400px) {
+		border-radius: 0;
+	}
+
+	will-change: transform, opacity;
+	transform: scale(1) translateY(-50%);
+	opacity: 1;
+
+	transition: transform 300ms 100ms cubic-bezier(.77,0,.18,1),
+	            opacity 300ms 100ms cubic-bezier(.77,0,.18,1);
+
+	&.is-hidden {
+		transform: scale(0) translateY(-50%);
+		opacity: 0;
+
+		transition: transform 300ms cubic-bezier(.77,0,.18,1),
+	            opacity 300ms cubic-bezier(.77,0,.18,1);
+	}
+}
+
+#modal-bg {
+	z-index: 11;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+
+	background: rgba(0, 0, 0, .7);
+
+	& .modal-bg-x {
+		position: absolute;
+		top: 64px;
+		right: 64px;
+
+		width: 36px;
+		height: 36px;
+
+		cursor: pointer;
+
+		background: no-repeat url('/img/x.svg') center center / 32px;
+	}
+
+	opacity: 1;
+	transition: opacity 200ms ease;
+
+	&.is-hidden {
+		opacity: 0;
+		pointer-events: none;
+
+		transition: opacity 200ms 200ms ease;
+	}
+}

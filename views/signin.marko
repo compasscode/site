@@ -1,0 +1,18 @@
+<include('../components/layout', data)/>
+<include('../components/nav', data)/>
+
+<script>
+
+document.querySelector('#modal-signin').classList.remove('is-hidden')
+document.querySelector('#modal-signin').style.boxShadow = 'none'
+document.querySelector('.nav-signin').remove()
+
+</script>
+
+<script if(data.error)>
+
+document.querySelector('#signin-error').innerText = "${data.error}"
+
+</script>
+
+<include('../components/footer', data)/>

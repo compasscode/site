@@ -39,11 +39,30 @@ $ npm run watch
 ### Configuration
 You can optionally configure options in a `config.json`. It's read as [JSON5](http://json5.org/), so comments are valid etc.
 
-Here are the defaults:
+Here are the options and their defaults:
 ```js
 {
-	db: 'nedb://database.db', // see https://git.io/v7fm0
+	db: 'nedb://', // see https://git.io/v7fm0
 	loglevel: 'info', // one of: 'debug', 'info', 'warn', 'success', 'error', 'none'
+	sessionSecret: 'hypersecurepassphrase',
+	sso: {
+		twitter: {
+			// see https://apps.twitter.com
+			consumerKey: null,
+			comsumerSecret: null,
+		},
+		github: {
+			// see https://git.io/v7JOA
+			clientID: null,
+			clientSecret: null,
+		},
+		google: {
+			// see https://console.developers.google.com/
+			// enable the Google+ API
+			clientID: null,
+			clientSecret: null,
+		},
+	},
 }
 ```
 

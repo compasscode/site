@@ -10,6 +10,8 @@ static const userLinks = [
 	{ title: 'Settings', url: '/me/settings' },
 ]
 
+$ const signedIn = !!data.user
+
 <div.nav>
 	<ul.nav-links.container>
 		<li.nav-link.nav-logo>
@@ -28,12 +30,12 @@ static const userLinks = [
 			<a href=`${link.url}`>${link.title}</a>
 		</li>
 
-		<li.nav-link.nav-user#nav-dropdown-action>
+		<li.nav-link.nav-user#nav-dropdown-action if(signedIn)>
 			<div.nav-user-dropdown.is-collapsed#nav-dropdown>
 				<div.nav-user-dropdown-arrow></div>
 
 				<div.nav-user-dropdown-content>
-					<b.nav-user-dropdown-name>alex</b>
+					<b.nav-user-dropdown-name>${data.user.username}</b>
 
 					<ul.nav-user-dropdown-links>
 						<li.nav-user-dropdown-link for(link in userLinks)>
@@ -49,14 +51,16 @@ static const userLinks = [
 				</div>
 			</div>
 		</li>
+
+		<li.nav-link.nav-signin else>
+			<a>Sign in / Create account</a>
+		</li>
 	</ul>
 </div>
 
 <div#nav-dropdown-close-action.is-hidden></div>
 
-<script>
-
-'use strict'
+<script if(signedIn)>
 
 // Dropdown open/close actions
 var navDropdownEl = document.getElementById('nav-dropdown')
@@ -78,7 +82,7 @@ navDropbgEl.addEventListener('click', function() {
 // 'Sign Out' link
 document.getElementById('nav-user-dropdown-sign-out')
 	.addEventListener('click', function() {
-		fetch('/me/signout', {
+		fetch('/signin/signout', {
 			method: 'POST',
 			credentials: 'same-origin'
 		}).then(function() {
@@ -87,6 +91,10 @@ document.getElementById('nav-user-dropdown-sign-out')
 			throw err
 		})
 	})
+
+</script>
+
+<script>
 
 // Compass needle animation
 !(function() {
@@ -152,3 +160,5 @@ document.getElementById('nav-user-dropdown-sign-out')
 })()
 
 </script>
+
+<include('../components/signin') if(!signedIn)/>
