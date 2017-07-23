@@ -12,7 +12,7 @@ This repository contains the server/site sourcecode. **Note: it's currently not 
 If you are interested in running a local copy of the Compass server, you'll need at least [Node.js 6](https://nodejs.org/en/download/current/).
 
 ```sh
-$ git clone https://github.com/compasscode/site compass --recursive-submodules
+$ git clone https://github.com/compasscode/site compass --recursive
 $ cd compass
 
 $ npm install

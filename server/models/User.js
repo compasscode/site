@@ -3,8 +3,7 @@ const bcrypt = require('bcryptjs-then')
 
 const usernamesNotAllowed = [
 	/* Root URLs we don't want people having */
-	'about', 'help', 'me', 'forums', 'store', 'donate', 'statistics',
-	'wiki', 'parents', 'educators', 'developers',
+	'about', 'help', 'me', 'forums', 'store', 'wiki', 'api', 'editor',
 ]
 
 module.exports = class User extends Document {
@@ -19,7 +18,7 @@ module.exports = class User extends Document {
 			unique: true }
 		this.usernameLower = String
 		this.passhash = { type: String }
-		this.joinDate = { type: Date, default: Date.now, required: true }
+		this.joinDate = { type: Date, default: Date.now }
 
 		/* Connections */
 		this.twitterId = String

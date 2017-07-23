@@ -1,5 +1,5 @@
 const auth = require('./auth')
-const { User } = require('./models')
+const { User, Project } = require('./models')
 const { log } = require('./util')
 
 module.exports = (app, db) => {
@@ -37,6 +37,27 @@ module.exports = (app, db) => {
 			res.end(new Buffer(req.user.avatar, 'hex'))
 		else
 			res.status(404).end()
+	})
+
+	app.get('/me/projects', async (req, res) => {
+		if (!req.user) {
+			req.flash('error', 'Please sign in')
+			return res.redirect('/signin')
+		}
+
+		// TODO split project lists into ten-project chunks
+		// so we don't have to load every single one of a user's
+		// projects at once
+
+		res.marko(require('../views/projects-list'), {
+			user: req.user,
+			projects: await Project.find({ authorUsername: req.user.username }, {
+				populate: [ 'name', 'isShared', 'sharedOn' ],
+				sort: 'changedOn',
+				// limit: TODO
+				// skip: TODO (pagination)
+			}),
+		})
 	})
 
 	/****** SETTINGS *******/

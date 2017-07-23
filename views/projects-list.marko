@@ -1,0 +1,40 @@
+<include('../components/layout', data) title='My projects'/>
+<include('../components/nav', data)/>
+
+<main.container>
+	<div>
+		<h4 style={ marginBottom: 0, display: 'inline-block' }>
+			<a.link href='/me'>${data.user.username}</a>
+			/
+		</h4>
+
+		<h1 style={ margin: 0, marginLeft: '8px',
+								verticalAlign: '-3px', display: 'inline-block' }>
+			Projects
+		</h1>
+
+		<a.btn.btn-theme.btn-small href='/editor' style={
+			display: 'inline-block',
+			float: 'right',
+		}>Create new</a>
+	</div>
+
+	<ul if(data.projects.length > 0)>
+		<!-- TODO actually style this -->
+		<li for(prj in data.projects)>
+			<a href=`/me/${prj._id}`>${prj.title}</a>
+			<span if(prj.isShared)>Shared on ${prj.sharedOn}{</span>
+
+			<hr.rule/>
+		</li>
+	</ul>
+
+	<p else()>
+		Looks like you don't yet have any projects.
+		<a.link href='/editor'>Create one!</a>
+	</p>
+
+	<!-- TODO pagination -->
+</main>
+
+<include('../components/footer', data)/>
