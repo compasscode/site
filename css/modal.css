@@ -4,7 +4,7 @@
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	margin-left: -200px !important;
+	transform: translate(-50%, -50%) scale(1);
 
 	width: 400px;
 
@@ -17,19 +17,14 @@
 		border-radius: 0;
 	}
 
-	will-change: transform, opacity;
-	transform: scale(1) translateY(-50%);
+
 	opacity: 1;
 
-	transition: transform 300ms 100ms cubic-bezier(.77,0,.18,1),
-	            opacity 300ms 100ms cubic-bezier(.77,0,.18,1);
+	transition: 0.2s;
 
 	&.is-hidden {
-		transform: scale(0) translateY(-50%);
+		transform: translate(-50%, -50%) scale(0.8);
 		opacity: 0;
-
-		transition: transform 300ms cubic-bezier(.77,0,.18,1),
-	            opacity 300ms cubic-bezier(.77,0,.18,1);
 	}
 }
 
@@ -60,12 +55,10 @@
 	}
 
 	opacity: 1;
-	transition: opacity 200ms ease;
+	transition: opacity 0.2s;
 
 	&.is-hidden {
 		opacity: 0;
 		pointer-events: none;
-
-		transition: opacity 200ms 200ms ease;
 	}
 }
