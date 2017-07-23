@@ -22,6 +22,7 @@
 	padding: 0;
 
 	& svg {
+		width: 100%;
 		transform: scale(1.5);
 
 		& #nav-logo-compass-needle {
