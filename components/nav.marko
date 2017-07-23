@@ -11,9 +11,11 @@ static const userLinks = [
 ]
 
 $ const signedIn = !!data.user
+$ const fullwidth = data.fullwidthNav === false
 
 <div.nav>
-	<ul.nav-links.container>
+	<ul class={
+		'nav-links': true, 'container': !fullwidth, 'nav-fullwidth': fullwidth }>
 		<li.nav-link.nav-logo>
 			<svg viewBox='0 0 48 40'>
 				<g fill='#fff'>

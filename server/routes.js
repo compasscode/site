@@ -60,6 +60,14 @@ module.exports = (app, db) => {
 		})
 	})
 
+	/****** PROJECTS *******/
+
+	app.get('/editor', (req, res) => {
+		res.marko(require('../views/editor'), {
+			user: req.user,
+		})
+	})
+
 	/****** SETTINGS *******/
 
 	let settingsTabs = {

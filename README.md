@@ -19,11 +19,6 @@ $ npm install
 $ npm install nedb
 ```
 
-You also need to compile assets with
-```sh
-$ npm run build
-```
-
 Finally, the server can be started using
 ```sh
 $ npm start
@@ -35,6 +30,12 @@ During development, you will need to build assets every time you change them. Th
 ```sh
 $ npm run watch
 ```
+
+If you'd prefer for builds to happen when you ask, do
+```sh
+$ npm run build
+```
+instead.
 
 ### Configuration
 You can optionally configure options in a `config.json`. It's read as [JSON5](http://json5.org/), so comments are valid etc.

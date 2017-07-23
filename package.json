@@ -30,9 +30,11 @@
   },
   "scripts": {
     "start": "nodemon server/index.js -q -i *.marko.js -e js,marko,json",
+    "install": "cd editor && yarn || npm install",
+    "postinstall": "npm run build",
     "clean": "rm -rf assets/",
-    "build": "npm run clean && mkdir -p assets/ && npm run build:css",
-    "watch": "concurrently --names \"css\" \"npm run watch:css\"",
+    "build": "npm run clean && mkdir -p assets/ && npm run build:css && cd editor && npm run build",
+    "watch": "concurrently --names \"css,editorcss,editorjs\" \"npm run watch:css\" \"cd editor && npm run watch:css\" \"cd editor && npm run watch:js\"",
     "build:css": "postcss css/index.css -o assets/index.css",
     "watch:css": "postcss css/index.css -o assets/index.css -w"
   }

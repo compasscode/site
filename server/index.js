@@ -27,7 +27,9 @@ app.use(session({
 app.use(require('connect-flash')())
 
 app.use('/img', express.static(path('/img')))
+app.use('/img', express.static(path('/editor/img')))
 app.use('/assets', express.static(path('/assets')))
+app.use('/assets', express.static(path('/editor/assets')))
 
 log.info('Connecting to database...')
 db.then(db => {
